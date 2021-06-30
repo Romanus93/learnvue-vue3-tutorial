@@ -1,5 +1,8 @@
 <template>
   <div class="root">
+    <div>
+      <button @click="accepted">emit-Button</button>
+    </div>
     <!-- <pre>
       {{titlesArray}}
     </pre> -->
@@ -17,9 +20,11 @@ import titles from '../post-data.json'
 import { computed , onBeforeUpdate } from 'vue';
 
 export default {
+  name: 'SearchResults',
   props: {
     query: String
   },
+  emits: ['accepted'],
   setup(props, context) {
     
     const filteredTitles = computed(() => {
@@ -31,7 +36,13 @@ export default {
     };
 
     const titlesArray = titles;
+    console.log(`context.emit ${context.emit}`);
 
+    const accepted = () => {
+      context.emit('accepted');
+    }
+    console.log(`this ${this}`);
+    console.log(`context ${context}`);
     // const objTitles = reactive(titles);
     console.log(props.query);
     console.log(titles.length);
@@ -46,7 +57,8 @@ export default {
     return {
       filteredTitles,
       consoleFunc,
-      titlesArray
+      titlesArray,
+      accepted
       // objTitles
     }
   },

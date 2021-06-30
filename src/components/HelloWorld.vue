@@ -8,7 +8,7 @@
     />
     <br>
     <button type='button' @click='reset'>Reset</button>
-    <search-results :query='query'/>
+    <search-results :query='query' @accepted="hello"/>
   </div>
 </template>
 
@@ -28,9 +28,14 @@ export default {
       query.value = '';
     };
 
+    const hello = () => {
+      console.log('hello emit');
+    }
+
     return {
       query,
-      reset
+      reset,
+      hello
     };
   }
 }
